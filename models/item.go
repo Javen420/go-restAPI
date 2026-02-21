@@ -1,6 +1,15 @@
 package models
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
+
+const (
+	StatusPending   = "pending"
+	StatusCompleted = "completed"
+	StatusCancelled = "cancelled"
+)
 
 type MenuItem interface {
 	GetName() string
@@ -79,4 +88,12 @@ func NewOrder(items []Item) (*Order, error) {
 		Status:      "pending",
 	}
 	return order, nil
+}
+
+func (o *Order) changeOrderStatus(status string) error {
+	if status != StatusPending && status != StatusCompleted && status != StatusCancelled {
+		return fmt.Errorf("invalid status: %s", status)
+	}
+	o.Status = status
+	return nil
 }
