@@ -1,7 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"encoding/json"
+	"net/http"
+
+	"github.com/gorilla/mux"
+)
 
 func main() {
-	fmt.Println("RestAPI")
+	r := mux.NewRouter()
+
+	r.HandleFunc("/", getOrder)
+	http.Handle("/", r)
+
 }
