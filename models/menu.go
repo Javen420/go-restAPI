@@ -1,10 +1,5 @@
 package models
 
-import (
-	"fmt"
-	"time"
-)
-
 type MenuItem interface {
 	GetName() string
 	GetPrice() float64
