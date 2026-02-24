@@ -41,7 +41,7 @@ RestAPI/
 
 1. Create the database:
    ```sql
-   CREATE DATABASE gorest;
+   CREATE DATABASE mydb;
    ```
 
 2. Create the tables:
@@ -89,7 +89,7 @@ RestAPI/
 Create a `.env` file in the project root:
 
 ```
-DATABASE_URL=postgres://postgres:yourpassword@localhost:5432/gorest?sslmode=disable
+DATABASE_URL=postgres://postgres:yourpassword@localhost:5432/mydb?sslmode=disable
 ```
 
 ### Run
