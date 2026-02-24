@@ -3,30 +3,24 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
-	"restAPI/models"
-
-	"github.com/gorilla/mux"
+	"restAPI/service"
 )
 
 type menuHandler struct {
+	service *service.MenuService
 }
 
-func NewMenuHandler() *menuHandler {
-	return &menuHandler{}
+func NewMenuHandler(service *service.MenuService) *menuHandler {
+	return &menuHandler{service: service}
 }
 
 func (h *menuHandler) GetAllMenu(w http.ResponseWriter, r *http.Request) {
-	//db
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode([]models.MenuItem{})
-}
-
-func (h *menuHandler) GetMenu(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id := vars["id"]
-
-	//db
+	menu, err := h.service.GetFullMenu(r.Context())
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{"MenuItem": id})
+	json.NewEncoder(w).Encode(menu)
 }

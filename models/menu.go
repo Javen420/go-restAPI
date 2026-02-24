@@ -5,14 +5,14 @@ type MenuItem interface {
 	GetPrice() float64
 }
 
-type SideDish struct {
+type Sides struct {
 	Name     string  `json:"name"`
 	Price    float64 `json:"price"`
 	Calories int     `json:"calories"`
 }
 
-func (s SideDish) GetName() string   { return s.Name }
-func (s SideDish) GetPrice() float64 { return s.Price }
+func (s Sides) GetName() string   { return s.Name }
+func (s Sides) GetPrice() float64 { return s.Price }
 
 type Drink struct {
 	Name     string  `json:"name"`
@@ -42,3 +42,10 @@ type Dessert struct {
 
 func (d Dessert) GetName() string   { return d.Name }
 func (d Dessert) GetPrice() float64 { return d.Price }
+
+type FullMenu struct {
+	Burgers  []Burger  `json:"burger"`
+	Sides    []Sides   `json:"sides"`
+	Drinks   []Drink   `json:"drink"`
+	Desserts []Dessert `json:"dessert"`
+}
