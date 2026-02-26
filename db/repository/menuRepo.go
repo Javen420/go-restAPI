@@ -46,14 +46,14 @@ func (repo *MenuRepository) GetFullMenu(ctx context.Context) (*models.FullMenu, 
 func (repo *MenuRepository) GetAllBurgers(ctx context.Context) ([]models.Burger, error) {
 	var burgers []models.Burger
 
-	rows, err := repo.pool.Query(ctx, "SELECT name, price, calories, is_meal FROM burgers")
+	rows, err := repo.pool.Query(ctx, "SELECT name, price, calories FROM burgers")
 	if err != nil {
 		return nil, err
 	}
 
 	for rows.Next() {
 		var b models.Burger
-		err := rows.Scan(&b.Name, &b.Price, &b.Calories, &b.IsMeal)
+		err := rows.Scan(&b.Name, &b.Price, &b.Calories)
 		if err != nil {
 			return nil, err
 		}

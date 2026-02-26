@@ -9,12 +9,18 @@ const (
 	StatusPending   = "pending"
 	StatusCompleted = "completed"
 	StatusCancelled = "cancelled"
+
+	MealUpcharge = 2.50
 )
 
 func getTotalPrice(items []Item) float64 {
 	total := 0.0
 	for _, item := range items {
-		total += item.MenuItem.GetPrice() * float64(item.Quantity)
+		price := item.MenuItem.GetPrice()
+		if item.IsMeal {
+			price += MealUpcharge
+		}
+		total += price * float64(item.Quantity)
 	}
 	return total
 }
@@ -22,6 +28,7 @@ func getTotalPrice(items []Item) float64 {
 type Item struct {
 	MenuItem MenuItem `json:"menu_item"`
 	Quantity int      `json:"quantity"`
+	IsMeal   bool     `json:"is_meal"`
 }
 
 type Order struct {

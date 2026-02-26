@@ -28,7 +28,6 @@ type Burger struct {
 	Name     string  `json:"name"`
 	Price    float64 `json:"price"`
 	Calories int     `json:"calories"`
-	IsMeal   bool    `json:"is_meal"`
 }
 
 func (b Burger) GetName() string   { return b.Name }
@@ -49,3 +48,4 @@ type FullMenu struct {
 	Drinks   []Drink   `json:"drink"`
 	Desserts []Dessert `json:"dessert"`
 }
+

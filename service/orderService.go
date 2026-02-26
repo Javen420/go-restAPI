@@ -28,6 +28,24 @@ func (s *OrderService) CreateOrder(ctx context.Context, items []models.Item) (*m
 		return nil, fmt.Errorf("order must have at least one item")
 	}
 
+	hasMeal := false
+	hasSide := false
+	hasDrink := false
+	for _, item := range items {
+		if item.IsMeal {
+			hasMeal = true
+		}
+		switch item.MenuItem.(type) {
+		case models.Sides:
+			hasSide = true
+		case models.Drink:
+			hasDrink = true
+		}
+	}
+	if hasMeal && (!hasSide || !hasDrink) {
+		return nil, fmt.Errorf("meal requires a side and a drink in the order")
+	}
+
 	order, err := models.NewOrder(items)
 	if err != nil {
 		return nil, err
